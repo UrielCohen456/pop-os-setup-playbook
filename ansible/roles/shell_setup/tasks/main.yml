@@ -1,0 +1,26 @@
+---
+- name: Test if oh-my-zsh is present.
+  stat:
+    path: '{{ local_home }}/.oh-my-zsh'
+  register: ohmyzsh
+
+- name: Install "oh-my-zsh"
+  shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  when: not ohmyzsh.stat.exists
+
+# - name: Clone dotfiles
+#   git:
+#     repo: "https://github.com/kevinjelnl/dotfiles.git"
+#     dest: "{{ local_home }}/dotfiles"
+#     update: no
+
+# - name: Set dotfiles
+#   shell: ./install
+#   args:
+#     chdir: "{{ local_home }}/dotfiles"
+
+- name: Set a locale exists
+  become: yes
+  locale_gen:
+    name: '{{ region_loc }}'
+    state: present

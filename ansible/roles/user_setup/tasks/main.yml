@@ -1,0 +1,28 @@
+---
+- name: Ensure group "docker" exists
+  become: yes
+  group:
+    name: docker
+    state: present
+
+- name: Set user settings
+  become: yes
+  user:
+      name: "{{ local_user }}"
+      shell: /usr/bin/zsh
+      groups: docker
+      append: yes
+      generate_ssh_key: yes
+
+- name: Set the newgroup
+  become: yes
+  shell: "newgrp docker"
+
+- name: Make sudo docker paswordless
+  become: yes
+  lineinfile:
+    path: /etc/sudoers.d/docker
+    line: '%sudo  ALL=(ALL:ALL) NOPASSWD:/snap/bin/docker'
+    create: yes
+    owner: root
+    mode: '0440'

@@ -4,32 +4,18 @@
   become: yes
   apt:
     pkg:
-    - snapd
-    - bat
-    - fzf
     - htop
-    - thefuck
-    - neovim
     - tmux
+    - bat
     - tree
-    - alacritty
     - zsh
+    - vim
     - appmenu-gtk3-module
     - gnome-tweaks
     - tlp
-    - wmctrl
     - poppler-utils
-    - libnotify-bin
     - autojump
     - npm
-    - redshift-gtk
-    - dconf-editor
-
-- name: Remove apt packages
-  become: yes
-  apt:
-    name: ['falkon', 'kdeconnect', 'midori', 'kazam']
-    state: absent
 
 - name: Remove dependencies that are no longer required
   become: yes
