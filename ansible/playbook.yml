@@ -12,7 +12,7 @@
       - 3843 # Just Perfection
       - 2 # Frippery Move Clock
       - 906 # Sound Input & Output
-      # - 1099 # Transparent GNOME panel
+      - 3960 # Transparent Top Panel
       # - 1005 # Focus my window
       - 277 # impatience
       # - 1403 # Remove alt-tab delay
