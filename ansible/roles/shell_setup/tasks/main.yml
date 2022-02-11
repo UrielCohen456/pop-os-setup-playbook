@@ -7,6 +7,43 @@
 - name: Install "oh-my-zsh"
   shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
   when: not ohmyzsh.stat.exists
+    
+- name: Test if powerlevel10k is present.
+  stat:
+    path: '{{ local_home }}/.oh-my-zsh/custom/themes/powerlevel10k'
+  register: p10k
+
+- name: Install Powerlevel10k
+  when: not p10k.stat.exists
+  git:
+    repo: https://github.com/romkatv/powerlevel10k.git 
+    dest: '{{ local_home }}/.oh-my-zsh/custom/themes/powerlevel10k'
+    depth: 1
+
+- name: Ensure powerlevel10k is the default theme
+  lineinfile:
+    line: ZSH_THEME="powerlevel10k/powerlevel10k"
+    path: '{{ local_home }}/.zshrc'
+    state: present
+
+- name: Create fonts directory
+  become: true
+  file:
+    path: "{{ fonts_path }}"
+    mode: '0755'
+    state: directory
+
+- name: Copy fonts
+  become: true
+  copy:
+    src: "files/{{ item }}"
+    dest: "{{ fonts_path }}/{{ item }}"
+    mode: '0644'
+  loop:
+    - MesloLGS NF Bold Italic.ttf
+    - MesloLGS NF Bold.ttf
+    - MesloLGS NF Italic.ttf
+    - MesloLGS NF Regular.ttf
 
 # - name: Clone dotfiles
 #   git:
@@ -18,9 +55,3 @@
 #   shell: ./install
 #   args:
 #     chdir: "{{ local_home }}/dotfiles"
-
-- name: Set a locale exists
-  become: yes
-  locale_gen:
-    name: '{{ region_loc }}'
-    state: present

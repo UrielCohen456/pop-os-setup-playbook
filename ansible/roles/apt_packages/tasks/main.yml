@@ -16,6 +16,8 @@
     - poppler-utils
     - autojump
     - npm
+    - language-pack-gnome-he
+    - gir1.2-gmenu-3.0
 
 - name: Remove dependencies that are no longer required
   become: yes

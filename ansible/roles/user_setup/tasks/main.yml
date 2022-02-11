@@ -14,10 +14,6 @@
       append: yes
       generate_ssh_key: yes
 
-- name: Set the newgroup
-  become: yes
-  shell: "newgrp docker"
-
 - name: Make sudo docker paswordless
   become: yes
   lineinfile:

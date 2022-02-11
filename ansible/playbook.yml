@@ -5,7 +5,6 @@
   vars:
     local_user: '{{ ansible_user_id }}'
     local_home: "{{ lookup('env','HOME') }}"
-    region_loc: 'en_IL.UTF-8'
     gnome_extension_ids:
       - 3628 # ArcMenu
       - 307 # Dash to Dock
@@ -13,10 +12,10 @@
       - 3843 # Just Perfection
       - 2 # Frippery Move Clock
       - 906 # Sound Input & Output
-      - 1099 # Transparent GNOME panel
-      - 1005 # Focus my window
+      # - 1099 # Transparent GNOME panel
+      # - 1005 # Focus my window
       - 277 # impatience
-      - 1403 # Remove alt-tab delay
+      # - 1403 # Remove alt-tab delay
       - 1238 # Time++
       - 1414 # Unblank lockscreen
 
@@ -24,13 +23,4 @@
     - { role: apt_packages, tags: ['apt'] }
     - { role: user_setup, tags: ['user'] }
     - { role: shell_setup, tags: ['shell'] }
-    - {
-        role: diodonfrost.p10k,
-        tags: ['p10k'],
-        zsh_plugin: 'ohmyzsh',
-        p10k_prompt_connection_color: 'light',
-        p10k_prompt_time: 'no',
-        p10k_prompt_height: 'one-line',
-        p10k_prompt_spacing: 'sparse',
-      }
     - { role: jaredhocutt.gnome_extensions, tags: ['gext'] }
